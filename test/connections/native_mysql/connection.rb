@@ -10,6 +10,6 @@ ActiveRecord::Base.establish_connection(
   :username => "root",
   :password => "root",
   :encoding => "utf8",
-  :socket   => "/Applications/MAMP/tmp/mysql/mysql.sock",
+  :socket   => "/tmp/mysql.sock",
   :database => db1
 )

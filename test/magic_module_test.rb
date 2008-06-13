@@ -17,4 +17,8 @@ class MagicModuleTest < Test::Unit::TestCase
     assert_equal('group_tag', MagicGroup::Tag.table_name)
   end
   
+  def test_other_magic_models_work
+    assert_nothing_thrown { Group }
+  end
+  
 end

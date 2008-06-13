@@ -72,7 +72,7 @@ namespace :mysql do
   desc 'Build the MySQL test databases'
   task :build_databases do 
     puts File.join(SCHEMA_PATH, 'mysql.sql')
-    socket = '/Applications/MAMP/tmp/mysql/mysql.sock'
+    socket = '/tmp/mysql.sock'
     user   = 'root'
     sh %{ mysqladmin -u #{user} -S #{socket} -p create "#{GEM_NAME}_unittest" }
     sh %{ mysql -u #{user} -S #{socket} -p "#{GEM_NAME}_unittest" < #{File.join(SCHEMA_PATH, 'mysql.sql')} }
@@ -80,7 +80,7 @@ namespace :mysql do
 
   desc 'Drop the MySQL test databases'
   task :drop_databases do 
-    socket = '/Applications/MAMP/tmp/mysql/mysql.sock'
+    socket = '/tmp/mysql.sock'
     user   = 'root'
     sh %{ mysqladmin -u #{user} -S #{socket} -p -f drop "#{GEM_NAME}_unittest" }
   end

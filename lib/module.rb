@@ -6,6 +6,12 @@ class Module
       return normal_const_missing(class_id)
     rescue
     end
+    
+    # scopes are created by calling magic_module; exclusivity is set by calling DrNicMagicModels.go_exclusive
+    if (DrNicMagicModels.exclusive_scopes? && !DrNicMagicModels.scopes.include?(self)) || !DrNicMagicModels.in_use
+      return normal_const_missing(class_id)
+    end
+    
     @magic_schema ||= DrNicMagicModels::Schema.new self
     unless table_name = @magic_schema.models[class_id]
       raise NameError.new("uninitialized constant #{class_id}") if @magic_schema.models.enquired? class_id
@@ -23,6 +29,24 @@ class Module
 
   def magic_module(options)
     self.instance_variable_set "@table_name_prefix", options[:table_name_prefix] if options[:table_name_prefix]
+    DrNicMagicModels.scopes << self
+  end
+  
+  def magic_schema
+    @magic_schema
+  end
+  
+  # This does more than just nil the magic_schema, it also undefs the classes
+  def clear_magic_schema
+    return if @magic_schema.nil?
+    @magic_schema.models.keys.each do |model|
+      begin
+        self.send :remove_const, model
+      rescue
+      end
+    end
+    
+    @magic_schema = nil
   end
 
   private

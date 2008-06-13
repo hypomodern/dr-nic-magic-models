@@ -261,6 +261,8 @@ h3. Use modules to scope your magic
 
 Only want to pick up tables starting with <code>blog_</code>?
 
+Call <code syntax="ruby">DrNicMagicModels.go_exclusive</code> and then:
+
 <pre syntax="ruby">module Blog
   magic_module :table_name_prefix => 'blog_'
 end

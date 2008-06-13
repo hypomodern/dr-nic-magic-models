@@ -21,7 +21,8 @@ module DrNicMagicModels
     end
 
     # all in lower case please
-    ReservedTables = [:schema_info, :sessions]
+    # schema_migrations is new in rails 2.1
+    ReservedTables = [:schema_info, :sessions, :schema_migrations]
     @models = nil
 
     def logger

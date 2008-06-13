@@ -18,7 +18,7 @@ class Test::Unit::TestCase #:nodoc:
   self.use_transactional_fixtures = true #(ENV['AR_NO_TX_FIXTURES'] != "yes")
 
   def create_fixtures(*table_names, &block)
-    Fixtures.create_fixtures(File.dirname(__FILE__) + "/fixtures/", table_names, {}, &block)
+    Fixtures.create_fixtures(fixture_path, table_names, {}, &block)
   end
   
   def assert_date_from_db(expected, actual, message = nil)
